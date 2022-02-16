@@ -1,4 +1,4 @@
-package main
+package assembly
 
 import (
 	"flag"
@@ -27,7 +27,7 @@ const (
 var xlsxPath = flag.String("o", "", "Path to the XLSX output file")// this is what will need to be pushed to the upload service?
 var delimiter = flag.String("d", ",", "Delimiter for fields in the CSV input.")
 
-func handler(delimiter string, XLSXPath string) error {
+func Handler(delimiter string, XLSXPath string) error {
 	//Create S3 session
 	s3session = s3.New(session.Must(session.NewSession(&aws.Config{
 				Region: aws.String(REGION),
@@ -81,6 +81,7 @@ func handler(delimiter string, XLSXPath string) error {
 		fmt.Printf(err.Error())
 	}
 
+	fmt.Println(xlsxFile)
 	return xlsxFile.Save(XLSXPath)
 
 }
